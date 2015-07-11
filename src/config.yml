@@ -1,0 +1,10 @@
+Complete: false
+WorldSet: false
+MySQl:
+  Ip: ''
+  Port: ''
+  Database: ''
+  User: ''
+  Password: ''
+GameCommands:
+- /stats

@@ -1,0 +1,29 @@
+name: SpeedBuilder
+version: 1.0
+author: McPlayHD
+website: http://McPlayHD.net/
+
+main: me.McPlayHD.speedbuilder.SpeedBuilder
+
+commands:
+  leave:
+    description: leave
+    usage:
+  l:
+    description: leave
+    usage:
+  lobby:
+    description: leave
+    usage:
+  hub:
+    description: leave
+    usage:
+  stats:
+    description: Stats
+    usage:
+  help:
+    description: Help
+    usage:
+  speedbuilder:
+    description: SpeedBuilder
+    usage:
