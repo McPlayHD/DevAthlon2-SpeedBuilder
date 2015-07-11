@@ -210,7 +210,7 @@ public class GameManager {
 			public void run() {
 				try {
 					Statement statement = plugin.c.createStatement();
-					ResultSet res = statement.executeQuery("SELECT * FROM `BuilderPoints` ORDER BY Rank;");
+					ResultSet res = statement.executeQuery("SELECT * FROM `SpeedBuilder` ORDER BY Rank;");
 					for(int i = 1; i<=5; i++) {
 						if(res.next()) {
 							while(res.getInt("Rank") == 0) {

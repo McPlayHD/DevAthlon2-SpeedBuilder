@@ -78,6 +78,9 @@ public class SpeedBuilder extends JavaPlugin {
 				ex.printStackTrace();
 			}
 		}
+		if(completeTest()) {
+			getConfig().set("Complete", true);
+		}
 		if(getConfig().getBoolean("Complete")) {
 			try {
 				MySQL = new MySQL(
@@ -88,6 +91,7 @@ public class SpeedBuilder extends JavaPlugin {
 						getConfig().getString("MySQl.User"),
 						getConfig().getString("MySQl.Password")
 						);
+				sqlm.CreateConnection();
 			} catch(Exception ex) {
 				System.out.println("Die MySQl-Daten sind nicht richtig in die config eingetragen.");
 			}
@@ -102,7 +106,7 @@ public class SpeedBuilder extends JavaPlugin {
 				if(args.length == 1) {
 					if(args[0].equalsIgnoreCase("spawn")) {
 						if(p.isOp()) {
-							getConfig().set("Spawn.World", p.getLocation().getWorld().getName());
+							getConfig().set("Spawn.World", "SpeedBuilder");
 							getConfig().set("Spawn.X", p.getLocation().getX());
 							getConfig().set("Spawn.Y", p.getLocation().getY());
 							getConfig().set("Spawn.Z", p.getLocation().getZ());
@@ -140,34 +144,42 @@ public class SpeedBuilder extends JavaPlugin {
 						if(p.isOp()) {
 							if(args[1].equalsIgnoreCase("head")) {
 								int top = Integer.parseInt(args[2]);
+								if(top > 0 && top < 6) {
 								if(p.getTargetBlock(null, 20).getState() instanceof Skull) {
 									Skull b = (Skull)p.getTargetBlock(null, 20).getState();
-									getConfig().set("Top." + top + ".Head.World", b.getLocation().getWorld().getName());
+									getConfig().set("Top." + top + ".Head.World", "SpeedBuilder");
 									getConfig().set("Top." + top + ".Head.X", b.getLocation().getX());
 									getConfig().set("Top." + top + ".Head.Y", b.getLocation().getY());
 									getConfig().set("Top." + top + ".Head.Z", b.getLocation().getZ());
 									saveConfig();
 									reloadConfig();
-									p.sendMessage("§aTop-Schild gesetzt");
+									p.sendMessage("§aTop-Head gesetzt");
 									if(completeTest()) {
 										getConfig().set("Complete", true);
 									}
 								}
+								} else {
+									p.sendMessage("§cEs können nur 5 Top-Heads gesetzt werden (1-5)");
+								}
 							}
 							if(args[1].equalsIgnoreCase("sign")) {
 								int top = Integer.parseInt(args[2]);
-								if(p.getTargetBlock(null, 20).getState() instanceof Sign) {
-									Block b = p.getTargetBlock(null, 20);
-									getConfig().set("Top." + top + ".Sign.World", b.getLocation().getWorld().getName());
-									getConfig().set("Top." + top + ".Sign.X", b.getLocation().getX());
-									getConfig().set("Top." + top + ".Sign.Y", b.getLocation().getY());
-									getConfig().set("Top." + top + ".Sign.Z", b.getLocation().getZ());
-									saveConfig();
-									reloadConfig();
-									p.sendMessage("§aTop-Schild gesetzt");
-									if(completeTest()) {
-										getConfig().set("Complete", true);
+								if(top > 0 && top < 6) {
+									if(p.getTargetBlock(null, 20).getState() instanceof Sign) {
+										Block b = p.getTargetBlock(null, 20);
+										getConfig().set("Top." + top + ".Sign.World", "SpeedBuilder");
+										getConfig().set("Top." + top + ".Sign.X", b.getLocation().getX());
+										getConfig().set("Top." + top + ".Sign.Y", b.getLocation().getY());
+										getConfig().set("Top." + top + ".Sign.Z", b.getLocation().getZ());
+										saveConfig();
+										reloadConfig();
+										p.sendMessage("§aTop-Schild gesetzt");
+										if(completeTest()) {
+											getConfig().set("Complete", true);
+										}
 									}
+								} else {
+									p.sendMessage("§cEs können nur 5 Top-Schilder gesetzt werden (1-5)");
 								}
 							}
 						}
@@ -261,7 +273,7 @@ public class SpeedBuilder extends JavaPlugin {
 			}
 		});
 	}
-	
+
 	public boolean completeTest() {
 		if(getConfig().getBoolean("WorldSet")) {
 			if(getConfig().get("Spawn.World") != null) {

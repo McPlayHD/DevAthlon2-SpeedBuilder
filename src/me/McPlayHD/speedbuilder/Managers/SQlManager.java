@@ -26,6 +26,8 @@ public class SQlManager {
 				plugin.c.close();
 			}
 			plugin.c = plugin.MySQL.openConnection();
+			Statement st = plugin.c.createStatement();
+			st.executeUpdate("CREATE TABLE IF NOT EXISTS `SpeedBuilder` ( `Name` TEXT NULL DEFAULT NULL , `UUID` TEXT NULL DEFAULT NULL , `Rank` INT NULL DEFAULT '0' , `Games` INT NOT NULL DEFAULT '0' , `Wins` INT NOT NULL DEFAULT '0' , `Besttime` BIGINT NOT NULL DEFAULT '0' , `Totaltime` BIGINT NOT NULL DEFAULT '0' ) ENGINE = InnoDB;");
 		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
 		}
